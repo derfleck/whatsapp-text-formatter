@@ -30,7 +30,7 @@ def shorten_url(url):
     api_url = 'https://is.gd/create.php'
     params = {
         'format': 'simple',
-        'url': url + '?utm_source=example&utm_medium=example&utm_campaign=example'
+        'url': url + '?utm_source=whatsapp&utm_medium=social'
     }
     response = requests.get(api_url, params=params)
     return response.text
