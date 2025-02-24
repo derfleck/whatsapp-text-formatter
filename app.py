@@ -69,6 +69,7 @@ st.markdown("""
     /* Hauptfarben */
     .stApp {
         background-color: #ECE5DD;
+        color: #111B21;
     }
     
     /* Header Styling */
@@ -78,11 +79,12 @@ st.markdown("""
     
     /* Text Area Styling */
     .stTextArea textarea {
-        font-family: monospace;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         white-space: pre-wrap;
         background-color: #DCF8C6 !important;
         border: 1px solid #25D366 !important;
         border-radius: 10px !important;
+        color: #111B21 !important;
     }
     
     /* Button Styling */
@@ -92,6 +94,7 @@ st.markdown("""
         border: none !important;
         border-radius: 20px !important;
         padding: 0.5rem 2rem !important;
+        font-weight: 500 !important;
     }
     
     .stButton > button:hover {
@@ -100,11 +103,25 @@ st.markdown("""
     
     /* File Uploader Styling */
     .stFileUploader {
-        background-color: #FFFFFF;
-        padding: 1rem;
-        border-radius: 10px;
-        border: 1px solid #128C7E;
+        background-color: #DCF8C6 !important;
+        padding: 1rem !important;
+        border-radius: 10px !important;
+        border: 1px solid #25D366 !important;
     }
+
+    .uploadedFile {
+        background-color: #DCF8C6 !important;
+        color: #111B21 !important;
+    }
+
+    /* Label Styling */
+    .stTextArea label, .stFileUploader label {
+        color: #111B21 !important;
+        font-weight: 500 !important;
+    }
+
+    /* Help Text Styling */
+    .stMarkdown div
     </style>
     """, unsafe_allow_html=True)
 
