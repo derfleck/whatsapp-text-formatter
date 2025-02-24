@@ -49,7 +49,6 @@ uploaded_file = st.file_uploader("Upload a Word document", type=["docx"])
 
 if uploaded_file is not None:
     input_text = handle_formatted_text(uploaded_file)
-
 if st.button('Format Text'):
     formatted_text = format_text_for_whatsapp(input_text)
     formatted_text = shorten_links(formatted_text)
