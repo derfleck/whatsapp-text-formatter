@@ -63,25 +63,68 @@ def handle_formatted_text(file):
     
     return '\n'.join(formatted_text)
 
-# Streamlit Layout mit HTML/Markdown Unterstützung
-st.title('WhatsApp Text Formatter')
+# Streamlit Layout mit WhatsApp-Styling
 st.markdown("""
     <style>
+    /* Hauptfarben */
+    .stApp {
+        background-color: #ECE5DD;
+    }
+    
+    /* Header Styling */
+    .stTitle {
+        color: #075E54 !important;
+    }
+    
+    /* Text Area Styling */
     .stTextArea textarea {
         font-family: monospace;
         white-space: pre-wrap;
+        background-color: #DCF8C6 !important;
+        border: 1px solid #25D366 !important;
+        border-radius: 10px !important;
+    }
+    
+    /* Button Styling */
+    .stButton > button {
+        background-color: #25D366 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 20px !important;
+        padding: 0.5rem 2rem !important;
+    }
+    
+    .stButton > button:hover {
+        background-color: #128C7E !important;
+    }
+    
+    /* File Uploader Styling */
+    .stFileUploader {
+        background-color: #FFFFFF;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #128C7E;
     }
     </style>
     """, unsafe_allow_html=True)
 
-input_text = st.text_area('Input Text (Unterstützt Formatierung durch Paste)', 
-    help="Paste formatierten Text oder nutze Markdown: *fett* _kursiv_ ~durchgestrichen~")
+# Header mit WhatsApp-Icon
+st.markdown("""
+    <div style='display: flex; align-items: center; gap: 10px;'>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/100px-WhatsApp.svg.png' 
+             style='width: 50px; height: 50px;'>
+        <h1 style='color: #075E54; margin: 0;'>WhatsApp-Text-Formatierer</h1>
+    </div>
+    """, unsafe_allow_html=True)
 
-uploaded_file = st.file_uploader("Upload a Word document", type=["docx"])
+input_text = st.text_area('Text (Unterstützt nicht alle Formatierungen)', 
+    help="Füge formatierten Text ein oder nutze Markdown: *fett* _kursiv_ ~durchgestrichen~ 1. Liste * Liste")
+
+uploaded_file = st.file_uploader("Word-Datei hochladen", type=["docx"])
 
 if uploaded_file is not None:
     input_text = handle_formatted_text(uploaded_file)
-if st.button('Format Text'):
+if st.button('Text formatieren'):
     formatted_text = format_text_for_whatsapp(input_text)
     formatted_text = shorten_links(formatted_text)
     st.text_area('Formatted Text', value=formatted_text, height=200)
