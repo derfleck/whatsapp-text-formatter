@@ -2,6 +2,7 @@ import streamlit as st
 import re
 import requests
 import docx
+from docx.shared import RGBColor
 
 # Function to format text for WhatsApp using Markdown
 def format_text_for_whatsapp(text):
@@ -37,14 +38,45 @@ def shorten_url(url):
 # Function to handle formatted text input from Word documents or Google Docs
 def handle_formatted_text(file):
     doc = docx.Document(file)
-    text = []
+    formatted_text = []
+    
     for paragraph in doc.paragraphs:
-        text.append(paragraph.text)
-    return '\n'.join(text)
+        # Überprüfe den Listentyp
+        if paragraph.style.name.startswith('List'):
+            if paragraph.style.name.startswith('List Number'):
+                formatted_text.append(f"1. {paragraph.text}")
+            else:
+                formatted_text.append(f"* {paragraph.text}")
+        else:
+            # Verarbeite den Text mit Formatierung
+            text = ""
+            for run in paragraph.runs:
+                content = run.text
+                if run.bold:
+                    content = f"*{content}*"
+                if run.italic:
+                    content = f"_{content}_"
+                if run.font.strike:
+                    content = f"~{content}~"
+                text += content
+            formatted_text.append(text)
+    
+    return '\n'.join(formatted_text)
 
-# Streamlit app layout
+# Streamlit Layout mit HTML/Markdown Unterstützung
 st.title('WhatsApp Text Formatter')
-input_text = st.text_area('Input Text')
+st.markdown("""
+    <style>
+    .stTextArea textarea {
+        font-family: monospace;
+        white-space: pre-wrap;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+input_text = st.text_area('Input Text (Unterstützt Formatierung durch Paste)', 
+    help="Paste formatierten Text oder nutze Markdown: *fett* _kursiv_ ~durchgestrichen~")
+
 uploaded_file = st.file_uploader("Upload a Word document", type=["docx"])
 
 if uploaded_file is not None:
