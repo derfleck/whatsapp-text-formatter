@@ -1,2 +1,1 @@
-# whatsapp-text-formatter
-A repository for a Streamlit app that formats text for WhatsApp
+This repository is empty. Any task executed on it should be considered a new capability and needs to be created.
